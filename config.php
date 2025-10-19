@@ -1,5 +1,5 @@
 <?php
-define('BOT_TOKEN', '8205372239:AAGkKFfOltBRixWKLxmSrzNYZLsAyCN3x7o');
-define('CHAT_ID', '8264277196');
+define('BOT_TOKEN', '7511027053:AAGVWTVKEcIHDcxefSZhg-f1ZzilnzRmBqc');
+define('CHAT_ID', '2089448721');
 
 ?>
